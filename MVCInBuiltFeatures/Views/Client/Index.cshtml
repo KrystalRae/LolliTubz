@@ -1,0 +1,47 @@
+﻿@model MVCInBuiltFeatures.Models.Client
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Client Information
+            </div>
+
+            <div class="card-body">
+                <div class="text-left mt-3">
+
+                    <p class="text-muted mb-2 font-13">
+                        <strong>Full Name :</strong> <span class="ml-2">
+                            @Model.Name
+                        </span>
+                    </p>
+
+                    <p class="text-muted mb-2 font-13">
+                        <strong>Address :</strong> <span class="ml-2">
+                            @Model.Address
+                        </span>
+                    </p>
+
+                    <p class="text-muted mb-2 font-13">
+                        <strong>Mobile :</strong><span class="ml-2">
+                            @Model.Contact
+                        </span>
+                    </p>
+
+                    <p class="text-muted mb-2 font-13">
+                        <strong>Email :</strong> <span class="ml-2 ">
+                            @Model.Email
+                        </span>
+                    </p>
+
+                    <p class="text-muted mb-2 font-13">
+                        <strong>Notes :</strong> <span class="ml-2">
+                            @Model.Notes
+                        </span>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

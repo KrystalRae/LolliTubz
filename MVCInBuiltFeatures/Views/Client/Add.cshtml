@@ -1,0 +1,49 @@
+﻿
+@model MVCInBuiltFeatures.Models.AddClientViewModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                New Client
+            </div>
+
+            <div class="card-body">
+                @using (Html.BeginForm("Add", "Client", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter Name", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter address", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Contact)
+                        @Html.TextBoxFor(m => m.Contact, new { @class = "form-control", @placeholder = "Enter contact number", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Email)
+                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @placeholder = "Enter email address", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Notes)
+                        @Html.TextBoxFor(m => m.Notes, new { @class = "form-control", @placeholder = "Enter notes", @required = "required" })
+                    </div>
+
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-success btn-block button-blue" type="submit"> Add Client </button>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card card-margin-bottom">
+            <div class="card-header">
+                <h2>Roles Listing</h2>
+                @Html.ActionLink("Create New Role", "Create", "Roles", htmlAttributes: new { @class = "link" }) |   @Html.ActionLink("Manage User Role", "ManageUserRoles", "Roles", htmlAttributes: new { @class = "link" })
+            </div>
+
+            <div class="card-body">
+                @foreach (var role in Model)
+                {
+                    <p>
+                        <strong>@role.Name</strong>             
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

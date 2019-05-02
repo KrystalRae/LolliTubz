@@ -1,0 +1,48 @@
+﻿@model MVCInBuiltFeatures.Models.AddLocationViewModel
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card card-margin-bottom">
+            <div class="card-header">
+                Add Location
+            </div>
+
+            <div class="card-body">
+                @using (Html.BeginForm("Add", "Location", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter location name", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter location address", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SelectedClientId)
+                        @Html.DropDownListFor(x => Model.SelectedClientId, new SelectList(Model.Clients, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.SelectedCharityId)
+                        @Html.DropDownListFor(x => Model.SelectedCharityId, new SelectList(Model.Charities, "Value", "Text"), htmlAttributes: new { @class = "form-control" })                        
+                    </div>
+
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-success btn-block button-blue" type="submit"> Add Location </button>
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-body mt-3 card-margin-bottom">
+    @Html.ActionLink("Add New Client", "Add", "Client", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-blue" })
+    @Html.ActionLink("Order Machine", "Index", "OrderMachine", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-blue" })
+</div>

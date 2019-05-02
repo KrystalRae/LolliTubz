@@ -1,0 +1,51 @@
+﻿@model List<MVCInBuiltFeatures.Models.Location>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Locations
+            </div>
+
+            <div class="card-body table">
+
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Address</th>
+                            <th>Distance</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var location in Model)
+                        {
+                        <tr>
+                            <td style="vertical-align: inherit;">                            
+                                <a href="@Url.Action("Index", "Location", new { id = location.Id })"> @location.Address</a>
+                            </td>
+                            <td>
+                                <a href="#" target="_blank" class="js-directions" data-to-address="@location.Address"> 
+                                    <i class="mdi mdi-car-sports" style="font-size: 20px; margin-right: 5px;"></i>
+                                    <span class="js-distance"></span>
+                                </a>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "Location", routeValues: new { id = location.Id }, htmlAttributes: new { @class = "btn button-blue" })
+                            </td>
+                        </tr>  
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-body mt-3">
+    @Html.ActionLink("Add New Location", "Add", "Location", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-block-padding button-blue" })
+</div>
+
+@section scripts    {
+        <script src="/assets/js/location.js"></script>
+    }

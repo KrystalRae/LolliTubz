@@ -1,0 +1,14 @@
+﻿<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Administrator Home Screen
+            </div>
+            <div class="card-body">
+                @Html.ActionLink("New User", "Register", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-blue" })
+                @Html.ActionLink("Change Password", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-blue" })
+                @Html.ActionLink("Roles", "Index", "Roles", routeValues: null, htmlAttributes: new { @class = "btn btn-block button-blue" })
+            </div>
+        </div>
+    </div>
+</div>

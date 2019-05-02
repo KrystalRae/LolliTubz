@@ -1,0 +1,59 @@
+﻿@model MVCInBuiltFeatures.Models.Location
+
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                @Model.Name
+            </div>
+            <p class="paragraph-margins">
+                @Model.Address
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Stock Fill
+            </div>
+
+            <div class="card-body table">
+
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Item Code</th>
+                            <th>Item</th>
+                            <th>Qty Adjust</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @*@foreach (var location in Model)*@
+                        @*{*@
+                        <tr>
+                            <td @*style="vertical-align: inherit;"*@>
+                                @*<a href="@Url.Action("Index", "Location", new { id = Model.Id })"> @location.Address</a>*@
+                            </td>
+                            <td>
+                                @*<a href="@Url.Action("Index", "Directions")"> <i class="mdi mdi-car-sports" style="font-size: 20px; margin-right: 5px;"></i>@location.Distance</a>*@
+                            </td>
+                            <td>
+                                @*@Html.ActionLink("Edit", "Edit", "Location", routeValues: new { id = Model.Id }, htmlAttributes: new { @class = "btn button-blue" })*@
+                                <button type="button" class="btn button-blue"><i class="fas fa-plus-circle"></i></button>
+                                <label id="stockLevelLabel"> stock level </label>
+                                <button type="button" class="btn button-blue"><i class="fas fa-minus-circle"></i></button>
+                            </td>
+                        </tr>
+                        @*}*@
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

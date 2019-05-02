@@ -1,0 +1,42 @@
+﻿@model MVCInBuiltFeatures.Models.Location   
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Locations
+            </div>
+
+            <div class="card-body">
+                @using (Html.BeginForm("Edit", "Location", FormMethod.Post, new { role = "form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Name)
+                        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @placeholder = "Enter location name", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Address)
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @placeholder = "Enter location address", @required = "required" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.ClientId)
+                        @Html.DropDownListFor(x => Model.ClientId, new SelectList(Model.Clients, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CharityId)
+                        @Html.DropDownListFor(x => Model.CharityId, new SelectList(Model.Charities, "Value", "Text"), htmlAttributes: new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group mb-0 text-center">
+                        <button class="btn btn-success btn-block button-blue" type="submit"> Save </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

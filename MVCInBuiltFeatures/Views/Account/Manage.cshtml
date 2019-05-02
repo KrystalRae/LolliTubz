@@ -1,0 +1,28 @@
+﻿@using MVCInBuiltFeatures.Models;
+@using Microsoft.AspNet.Identity;
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card card-margin-bottom">
+            <div class="card-header">
+                Manage Account
+            </div>
+
+            <div class="card-body">
+                @if (ViewBag.HasLocalPassword)
+                {
+                    @Html.Partial("_ChangePasswordPartial")
+                }
+                else
+                {
+                    @Html.Partial("_SetPasswordPartial")
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+
