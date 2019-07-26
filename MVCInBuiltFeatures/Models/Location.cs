@@ -13,6 +13,7 @@ namespace MVCInBuiltFeatures.Models
 
         [ForeignKey("ClientId")]
         public virtual Client Client { get; set; }
+
         [Display(Name = "Client")]
         public int ClientId { get; set; }
         public IEnumerable<SelectListItem> Clients { get; set; }

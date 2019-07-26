@@ -1,12 +1,71 @@
-﻿<div class="row mt-3">    
+﻿@model MVCInBuiltFeatures.Models.StockOrderModel
+
+<div class="row mt-3">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                Stock Order
+                Buyer Approved Orders
             </div>
-            <div class="card-body">
-                
-            </div>
-        </div> 
-    </div>   
+            <p class="paragraph-margins form-group">
+                @Model.FranchiseName
+            </p>
+        </div>
+    </div>
 </div>
+<div class="row mt-3">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body table">
+
+                <table class="table table-striped mb-0">
+                    <thead>
+                        <tr>
+                            <th>Location Name</th>
+                            <th>Total Number Products in Order</th>
+                            <th>Total Value of Order</th>
+                            <th>Order Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.ApprovedOrders)
+                        {
+                            <tr>
+                                <td style="vertical-align: inherit;">
+                                     @order.LocationName
+                                </td>
+                                <td>
+                                    @order.TotalProductQuantity
+                                </td>
+                                <td>
+                                    @order.OrderValue
+                                </td>
+                                <td>
+                                    @order.OrderDate.ToString("dd-MMM-yyyy")
+                                </td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><strong>Summary</strong></td>
+                            <td></td>
+                            <td><strong>Total Cost</strong></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Model.TotalNumberOfLocations Sites
+                            </td>
+                            <td>
+                                @Model.TotalNumberOfProducts
+                            </td>
+                            <td>
+                               $ @Model.TotalValueOfProducts
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
+

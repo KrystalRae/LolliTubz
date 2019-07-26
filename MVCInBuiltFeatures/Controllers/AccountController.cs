@@ -40,22 +40,32 @@ namespace MVCInBuiltFeatures.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            try
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                if (ModelState.IsValid)
                 {
-                    await SignInAsync(user, model.RememberMe);
-                    return RedirectToLocal(returnUrl);
+                    var user = await UserManager.FindAsync(model.UserName, model.Password);
+                    if (user != null)
+                    {
+                        await SignInAsync(user, model.RememberMe);
+                        return RedirectToLocal(returnUrl);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Invalid username or password.");
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
-            }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+                // If we got this far, something failed, redisplay form
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                return View(new LoginViewModel
+                {
+                    ErrorMessage = ex.GetType().ToString() + " " + ex.Message
+                });
+            }
         }
 
         //

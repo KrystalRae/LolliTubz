@@ -26,6 +26,16 @@ namespace MVCInBuiltFeatures.Managers
             }
         }
 
+        public List<Product> GetAllStock()
+        {
+            using (var context = new ApplicationDbContext())
+            {
+                var stock = context.Products.ToList();
+
+                return stock;
+            }
+        }
+
         public void AddNewFranchiseLocation(int franchiseId, AddLocationViewModel model)
         {
             using (var context = new ApplicationDbContext())
@@ -142,6 +152,13 @@ namespace MVCInBuiltFeatures.Managers
 
                 return location;
             }
+        }
+
+        public StockFillModel GetStockFillLocation(int id, ApplicationUser currentUser)
+        {
+            var stock = GetAllStock();
+            Location location = GetLocation(id, currentUser);
+            return (new StockFillModel(location, stock));
         }
 
     }

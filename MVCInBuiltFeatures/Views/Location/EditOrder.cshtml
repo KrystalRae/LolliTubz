@@ -1,6 +1,6 @@
-﻿@model MVCInBuiltFeatures.Models.StockFillModel
+﻿@model MVCInBuiltFeatures.Models.OrderSummaryModel
 
-@using (Html.BeginForm("StockFill", "Location", FormMethod.Post, new { role = "form" }))
+@using (Html.BeginForm("EditOrder", "Location", FormMethod.Post, new { role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header form-group">
                     @Html.DisplayFor(x => Model.Location.Name)
-                    @Html.HiddenFor(x => Model.Location.Id)
+                    @Html.HiddenFor(x => Model.OrderId)
                 </div>
                 <p class="paragraph-margins form-group">
                     @Html.DisplayFor(model => Model.Location.Address)
@@ -38,20 +38,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @for (int i = 0; i < Model.Stock.Count; i++)
+                            @for (int i = 0; i < Model.OrderProductList.Count; i++)
                             {
                                 <tr>
                                     <td style="vertical-align: inherit;">
-                                        <span class="form-group">@Model.Stock[i].ProductCode</span>
-                                        @Html.HiddenFor(x => Model.Stock[i].ProductCode)
+                                        <span class="form-group">@Model.OrderProductList[i].ProductCode</span>
+                                        @Html.HiddenFor(x => Model.OrderProductList[i].ProductCode)
                                     </td>
                                     <td>
-                                        <span class="form-group">@Model.Stock[i].ProductName</span>
+                                        <span class="form-group">@Model.OrderProductList[i].ProductName</span>
                                     </td>
                                     <td>
                                         <button type="button" class="btn button-blue mr-2" onclick="changeLabelPlusOne(this)"><i class="fas fa-plus-circle"></i></button>
-                                        <label class="form-group stockLevelLabel">@Html.ValueFor(model => Model.Stock[i].Quantity)</label>
-                                        @Html.HiddenFor(model => Model.Stock[i].Quantity, htmlAttributes: new { @class = "quantity" })
+                                        <label class="form-group stockLevelLabel">@Html.ValueFor(model => Model.OrderProductList[i].Quantity)</label>
+                                        @Html.HiddenFor(model => Model.OrderProductList[i].Quantity, htmlAttributes: new { @class = "quantity" })
                                         <button type="button" class="btn button-blue ml-2" onclick="changeLabelMinusOne(this)"><i class="fas fa-minus-circle"></i></button>
                                     </td>
                                 </tr>

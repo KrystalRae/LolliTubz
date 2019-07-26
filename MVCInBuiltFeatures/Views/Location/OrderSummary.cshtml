@@ -1,0 +1,78 @@
+﻿@model MVCInBuiltFeatures.Models.OrderSummaryModel
+
+
+@using (Html.BeginForm("OrderSummary", "Location", FormMethod.Post, new { role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header form-group">
+                    @Html.DisplayFor(x => Model.Location.Name)
+                    @Html.HiddenFor(x => Model.OrderId)
+                </div>
+                <p class="paragraph-margins form-group">
+                    @Html.DisplayFor(model => Model.Location.Address)
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    Order Summary
+                </div>
+
+                <div class="card-body table">
+
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <!--What happens when the Model.Stock has no items in it? it dies. Might just want to stick text in here -->
+                                <th class="form-group">Quantity</th>
+                                <th class="form-group">Item Name</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.OrderProductList.Count; i++)
+                            {
+                                <tr>
+                                    <td style="vertical-align: inherit;">
+                                        <span class="form-group">@Model.OrderProductList[i].Quantity</span>
+                                        @Html.HiddenFor(x => Model.OrderProductList[i].ProductCode)
+                                    </td>
+                                    <td>
+                                        <span class="form-group">@Model.OrderProductList[i].ProductName</span>
+                                    </td>
+                                </tr>
+                            }
+
+                            <tr>
+                                <td><strong>Total</strong></td>
+                            </tr>
+                            <tr>
+                                <td>@Model.TotalNumberOfProducts</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @Html.ActionLink("Edit", "EditOrder", "Location", routeValues: new { id = Model.OrderId }, htmlAttributes: new { @class = "btn btn-block button-blue" })
+                    <button class="btn btn-success btn-block button-blue" type="submit"> Approve </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

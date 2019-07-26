@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -16,6 +17,10 @@ namespace MVCInBuiltFeatures.Models
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Charity> Charity { get; set; }
         public virtual DbSet<Franchise> Franchise { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderLine> OrderLines { get; set; }
+        public virtual DbSet<OrderStatus> OrderStatus { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -49,6 +54,22 @@ namespace MVCInBuiltFeatures.Models
            
             context.SaveChanges();
 
+            var orderStatusNotApproved = new OrderStatus
+            {
+                OrderStatusId = (int)OrderStatusEnum.NotApproved,
+                Name = "Not Approved"
+            };
+
+            var orderStatusBuyerApproved = new OrderStatus
+            {
+                OrderStatusId = (int)OrderStatusEnum.BuyerApproved,
+                Name = "Buyer Approved"
+            };
+
+            context.OrderStatus.Add(orderStatusNotApproved);
+            context.OrderStatus.Add(orderStatusBuyerApproved);
+            context.SaveChanges();
+
             var franchise1 = new Franchise
             {
                 Id = 1,
@@ -56,6 +77,15 @@ namespace MVCInBuiltFeatures.Models
             };
 
             context.Franchise.Add(franchise1);
+            context.SaveChanges();
+
+            var softMints = new Product("Soft Mints", "SOFTMINT");
+            var cola = new Product("Cola Bottles", "COLABTL");
+            var toblerone = new Product("Toblerone", "TOBLERONE");
+
+            context.Products.Add(softMints);
+            context.Products.Add(cola);
+            context.Products.Add(toblerone);
             context.SaveChanges();
 
             var client1 = new Client
@@ -84,7 +114,7 @@ namespace MVCInBuiltFeatures.Models
                 Address = "1 Fun Street",
                 Charity = charity1,
                 Client = client1,
-                Franchise = franchise1
+                Franchise = franchise1,
             };
 
             context.Locations.Add(location1);
