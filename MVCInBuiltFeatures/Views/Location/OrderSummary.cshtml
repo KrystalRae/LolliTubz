@@ -31,8 +31,9 @@
                             <tr>
                                 <!--What happens when the Model.Stock has no items in it? it dies. Might just want to stick text in here -->
                                 <th class="form-group">Quantity</th>
+                                <th class="form-group">Cost</th>
                                 <th class="form-group">Item Name</th>
-
+<
                             </tr>
                         </thead>
                         <tbody>
@@ -44,6 +45,9 @@
                                         @Html.HiddenFor(x => Model.OrderProductList[i].ProductCode)
                                     </td>
                                     <td>
+                                        <span class="form-group">@Model.OrderProductList[i].Cost.ToString("C")</span>
+                                    </td>
+                                    <td>
                                         <span class="form-group">@Model.OrderProductList[i].ProductName</span>
                                     </td>
                                 </tr>
@@ -51,9 +55,12 @@
 
                             <tr>
                                 <td><strong>Total</strong></td>
+                                <td><strong>Total Cost</strong></td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>@Model.TotalNumberOfProducts</td>
+                                <td>@Model.TotalCostProduct.ToString("C")</td>
                                 <td></td>
                             </tr>
                         </tbody>

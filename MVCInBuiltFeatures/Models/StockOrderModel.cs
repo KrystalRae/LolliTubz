@@ -11,9 +11,9 @@ namespace MVCInBuiltFeatures.Models
         public List<BuyerApprovedOrderModel> ApprovedOrders { get; set; }
         public int TotalNumberOfLocations { get; set; }
         public int TotalNumberOfProducts { get; set; }
-        public int TotalValueOfProducts { get; set; }
+        public float TotalValueOfProducts { get; set; }
 
-        public StockOrderModel(string franchiseName, List<BuyerApprovedOrderModel> approvedOrders, int numOfLocations, int totalProducts, int totalValue)
+        public StockOrderModel(string franchiseName, List<BuyerApprovedOrderModel> approvedOrders, int numOfLocations, int totalProducts, float totalValue)
         {
             FranchiseName = franchiseName;
             ApprovedOrders = approvedOrders;

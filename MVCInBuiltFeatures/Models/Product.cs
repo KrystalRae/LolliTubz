@@ -18,15 +18,19 @@ namespace MVCInBuiltFeatures.Models
         [Display(Name = "Quantity")]
         public int Quantity { get; set; }
 
+        [Display(Name = "Cost")]
+        public float Cost { get; set; }
+
         public Product()
         {
 
         }
 
-        public Product(string name, string code)
+        public Product(string name, string code, float cost)
         {
             ProductName = name;
             ProductCode = code;
+            Cost = cost;
             Quantity = 0;
         }
 

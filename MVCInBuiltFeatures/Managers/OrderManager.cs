@@ -66,8 +66,16 @@ namespace MVCInBuiltFeatures.Managers
         {
             Order order = GetOrderFromOrderId(orderId);
             List<Product> productList = GetProductsFromOrderLines(orderId);
-            return new OrderSummaryModel(new LocationManager().GetLocation(order.LocationId, currentUser), productList, order.OrderId, CalcTotalNumberOfProducts(productList));
+            foreach ( Product product in productList)
+            {
+                float totalProductCost = product.Cost * product.Quantity;
+                product.Cost = totalProductCost;
+            }
+        
+            return new OrderSummaryModel(new LocationManager().GetLocation(order.LocationId, currentUser), productList, order.OrderId, CalcTotalNumberOfProducts(productList), CalcTotalCostProduct(productList));
         }
+
+        
 
         public OrderSummaryModel CreateEditOrderSummaryModel(int orderId, ApplicationUser currentUser)
         {
@@ -88,7 +96,9 @@ namespace MVCInBuiltFeatures.Managers
                 }
             }
             int totalNumProducts = CalcTotalNumberOfProducts(allProducts);
-            return new OrderSummaryModel(location, allProducts, orderId, totalNumProducts);
+            float totalCostProducts = CalcTotalCostProduct(orderProducts);
+
+            return new OrderSummaryModel(location, allProducts, orderId, totalNumProducts, totalCostProducts);
         }
 
         public StockFillModel EditOrder(int orderId, ApplicationUser currentUser)
@@ -110,7 +120,15 @@ namespace MVCInBuiltFeatures.Managers
             return modelList;
         }
 
-        
+        public float CalcTotalCostProduct(List<Product> productList)
+        {
+            float total = 0;
+            foreach(Product product in productList)
+            {
+                total = total + product.Cost;
+            }
+            return total;
+        }
 
         public int CalcTotalNumberOfProducts(List<Product> productList)
         {
@@ -133,13 +151,33 @@ namespace MVCInBuiltFeatures.Managers
             }
         }
 
+        public float getTotalOrderCost(Order order) { 
+     
+            if (order.OrderLines == null)
+            {
+                return 0;
+            }
+
+            float orderTotal = 0;
+            foreach (OrderLine orderLine in order.OrderLines)
+            {
+                float cost =GetProduct(orderLine.ProductCode).Cost;
+                float quantity = orderLine.Quantity;
+                float productCost = cost * quantity;
+
+
+                orderTotal += productCost;
+            }
+            return orderTotal;
+        }
+
         public StockOrderModel CreateStockOrderModel(int franchiseId)
         {
             List<Order> buyerApprovedOrders = GetListOfBuyerApprovedOrders(franchiseId);
             List<BuyerApprovedOrderModel> orderModels = new List<BuyerApprovedOrderModel>();
             foreach(Order order in buyerApprovedOrders)
             {
-                orderModels.Add(new BuyerApprovedOrderModel(order.Location.Name, TotalProductsInAnOrder(order.OrderId), (TotalProductsInAnOrder(order.OrderId) * 2), order.OrderDate));
+                orderModels.Add(new BuyerApprovedOrderModel(order.Location.Name, TotalProductsInAnOrder(order.OrderId), getTotalOrderCost(order), order.OrderDate));
             }
 
             return new StockOrderModel(GetFranchiseName(franchiseId), orderModels, orderModels.Count, TotalNumberOfProductsFromAllApprovedOrders(orderModels), TotalValueOfAllApprovedOrders(orderModels));
@@ -160,7 +198,7 @@ namespace MVCInBuiltFeatures.Managers
 
             using (var context = new ApplicationDbContext())
             {
-                List<Order> pendingOrderList = context.Orders.Include("Location").Where(x => x.Location.FranchiseId == franchiseId && x.OrderStatusId == (int)OrderStatusEnum.BuyerApproved).ToList();
+                List<Order> pendingOrderList = context.Orders.Include("Location").Include("OrderLines").Where(x => x.Location.FranchiseId == franchiseId && x.OrderStatusId == (int)OrderStatusEnum.BuyerApproved).ToList();
                 return pendingOrderList;
             }
         }
@@ -215,9 +253,9 @@ namespace MVCInBuiltFeatures.Managers
             return count;
         }
 
-        private int TotalValueOfAllApprovedOrders(List<BuyerApprovedOrderModel> approvedOrders)
+        private float TotalValueOfAllApprovedOrders(List<BuyerApprovedOrderModel> approvedOrders)
         {
-            int count = 0;
+            float count = 0;
             foreach (BuyerApprovedOrderModel order in approvedOrders)
             {
                 count = count + order.OrderValue;

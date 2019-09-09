@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
 
 namespace MVCInBuiltFeatures.Models
 {
@@ -10,7 +8,8 @@ namespace MVCInBuiltFeatures.Models
     {
         public ApplicationDbContext() : base("DefaultConnection")
         {
-            Database.SetInitializer(new ApplicationInitializer());
+            Database.SetInitializer<ApplicationDbContext>(null);
+            //Database.SetInitializer(new ApplicationInitializer());
         }
 
         public virtual DbSet<Location> Locations { get; set; }
@@ -79,9 +78,9 @@ namespace MVCInBuiltFeatures.Models
             context.Franchise.Add(franchise1);
             context.SaveChanges();
 
-            var softMints = new Product("Soft Mints", "SOFTMINT");
-            var cola = new Product("Cola Bottles", "COLABTL");
-            var toblerone = new Product("Toblerone", "TOBLERONE");
+            var softMints = new Product("Soft Mints", "SOFTMINT", 2.00f);
+            var cola = new Product("Cola Bottles", "COLABTL", 2.50f);
+            var toblerone = new Product("Toblerone", "TOBLERONE", 3.00f);
 
             context.Products.Add(softMints);
             context.Products.Add(cola);

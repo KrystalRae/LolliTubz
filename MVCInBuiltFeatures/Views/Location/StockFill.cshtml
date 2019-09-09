@@ -34,28 +34,45 @@
                                 <!--What happens when the Model.Stock has no items in it? it dies. Might just want to stick text in here -->
                                 <th class="form-group">Item Code</th>
                                 <th class="form-group">Item Name</th>
+                                <th class="form-group">Item Cost</th>
                                 <th class="form-group">Quantity</th>
+                                <th class="form-group">Total</th>
                             </tr>
                         </thead>
                         <tbody>
                             @for (int i = 0; i < Model.Stock.Count; i++)
                             {
-                                <tr>
-                                    <td style="vertical-align: inherit;">
-                                        <span class="form-group">@Model.Stock[i].ProductCode</span>
-                                        @Html.HiddenFor(x => Model.Stock[i].ProductCode)
-                                    </td>
-                                    <td>
-                                        <span class="form-group">@Model.Stock[i].ProductName</span>
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn button-blue mr-2" onclick="changeLabelPlusOne(this)"><i class="fas fa-plus-circle"></i></button>
-                                        <label class="form-group stockLevelLabel">@Html.ValueFor(model => Model.Stock[i].Quantity)</label>
-                                        @Html.HiddenFor(model => Model.Stock[i].Quantity, htmlAttributes: new { @class = "quantity" })
-                                        <button type="button" class="btn button-blue ml-2" onclick="changeLabelMinusOne(this)"><i class="fas fa-minus-circle"></i></button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td style="vertical-align: inherit;">
+                                    <span class="form-group">@Model.Stock[i].ProductCode</span>
+                                    @Html.HiddenFor(x => Model.Stock[i].ProductCode)
+                                </td>
+                                <td>
+                                    <span class="form-group">@Model.Stock[i].ProductName</span>
+                                </td>
+                                <td>
+                                    <span class="form-group cost">@Model.Stock[i].Cost</span>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn button-blue mr-2" onclick="changeLabelPlusOne(this)"><i class="fas fa-plus-circle"></i></button>
+                                    <label class="form-group stockLevelLabel">@Html.ValueFor(model => Model.Stock[i].Quantity)</label>
+                                    @Html.HiddenFor(model => Model.Stock[i].Quantity, htmlAttributes: new { @class = "quantity" })
+                                    <button type="button" class="btn button-blue ml-2" onclick="changeLabelMinusOne(this)"><i class="fas fa-minus-circle"></i></button>
+                                </td>
+                                <td>
+                                    <span class="form-group totalRowValue" ></span>
+                                </td>
+                            </tr>
                             }
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <span id="pageTotal"></span>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                     <div class="form-group mb-0 text-center card card-body mt-3 card-margin-bottom">
